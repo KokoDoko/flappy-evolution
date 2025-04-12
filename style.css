@@ -1,0 +1,132 @@
+:root {
+    background-color: #87CEEB;
+}
+
+
+body {
+    margin: 0;
+    font-family: Inter, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+}
+
+h2 {
+    margin: 0;
+}
+
+#game {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-image: url(./images/sky-repeat.png);
+    background-size: 2000px 100vh;
+    background-repeat: repeat-x;
+    animation: scrollBackground 30s linear infinite;
+}
+
+#game.paused {
+    animation-play-state: paused;
+}
+
+@keyframes scrollBackground {
+    from {
+        background-position-x: 0;
+    }
+
+    to {
+        background-position-x: -2000px;
+    }
+}
+
+
+.bird {
+    width: 60px;
+    height: 50px;
+    background-image: url(./images/bird-side-transparent.png);
+    position: absolute;
+    background-size: 100% 100%;
+}
+
+.dead {
+    animation: fallOffScreen 1s ease-out forwards;
+}
+
+@keyframes fallOffScreen {
+    from {
+        opacity: 1;
+        left: 0px;
+    }
+
+    to {
+        opacity: 0;
+        left: -200px;
+    }
+}
+
+.pipe {
+    position: absolute;
+    width: 80px;
+    background-color: #2da44e;
+    background-image: url(./images/pipe.png);
+    background-repeat: repeat-y;
+    background-size: 100%;
+}
+
+#score {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    z-index: 1;
+}
+
+#stats {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: left;
+    width: 130px;
+    font-size: 14px;
+    color: white;
+    font-family: monospace;
+    z-index: 1;
+}
+
+#gapcheck {
+    position: absolute;
+    /* revert to absolute positioning */
+    pointer-events: none;
+    transform-origin: top left;
+    /* ensure transform calculations use top left origin */
+    left: 0px;
+    top: 0px;
+    width: 80px;
+    border: 2px dashed white;
+    z-index: 1;
+}
+
+#game-over {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(4px);
+}
+
+#restart-button, #save {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #2da44e;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
