@@ -26,7 +26,7 @@ export class Game {
         this.pipeManager = new PipeManager();
 
         // population
-        let populationSize = 3
+        let populationSize = 1
         for (let i = 0; i < populationSize; i++) {
             this.birds.push(new Bird());
         }
@@ -41,10 +41,6 @@ export class Game {
             bird.reset();
         }
         this.pipeManager.reset();
-
-        // Create initial pipe at a visible position
-        this.pipeManager.createPipe(window.innerWidth - 400);
-
         this.gameOverElement.close();
         this.gameElement.classList.remove("paused")
 
@@ -84,7 +80,7 @@ export class Game {
         // Update bird position
         let livingbirds = 0
         for (let bird of this.birds) {
-            if(bird.alive) {
+            if(bird.alive && bird.loaded) {
                 livingbirds++
                 bird.update();
             }

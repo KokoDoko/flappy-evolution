@@ -16,6 +16,7 @@ export class Bird {
         this.x = 200; 
         this.width = this.element.getBoundingClientRect().width
         this.height = this.element.getBoundingClientRect().height
+        this.loaded = false;
         this.updatePosition();
         this.createBrain();
     }
@@ -29,12 +30,13 @@ export class Bird {
         };
         this.brain = ml5.neuralNetwork(options);
         const modelInfo = {
-            model: "model/model.json",
-            metadata: "model/model_meta.json",
-            weights: "model/model.weights.bin",
+            model: "./model/model.json",
+            metadata: "./model/model_meta.json",
+            weights: "./model/model.weights.bin",
         };
         this.brain.load(modelInfo, ()=>{
             console.log("brain loaded!")
+            this.loaded = true;
         });
 
     }
@@ -88,14 +90,22 @@ export class Bird {
         // 
         if (pipeStats) {
             // create neural network inputs. divide by width/height as a way of normalisation (0 - 1 range)
+            let distance = Math.max(0, pipeStats.xpos - this.x)
             let inputs = [
                 this.y / this.gameHeight,
                 this.normalizeVelocity(this.velocity),                       
-                (pipeStats.xpos - this.x + this.width) / this.gameWidth,    // todo x could be -minus 
+                distance / this.gameWidth,   
                 pipeStats.gapTop / this.gameHeight,
                 pipeStats.gapBottom / this.gameHeight
             ];
 
+            this.stats.innerHTML = `
+                Y Pos:    ${inputs[0].toFixed(2)}<br>
+                Velocity: ${inputs[1].toFixed(2)}<br>
+                Distance: ${inputs[2].toFixed(2) }<br>
+                Gap top:  ${inputs[3].toFixed(2)}<br>
+                Gap bot:  ${inputs[4].toFixed(2)}
+            `
             // Wait synchronously for the result (without callback - otherwise you get 30 callbacks per second)
             let results = this.brain.classifySync(inputs);        
             if (results[0].label === "flap") {

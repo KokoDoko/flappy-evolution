@@ -9,7 +9,7 @@ export class PipeManager {
         this.score = 0;
         this.gameElement = document.getElementById('game');
         this.scoreElement = document.getElementById('score'); // top left
-        //this.gapCheck = document.getElementById('gapcheck');
+        this.gapCheck = document.getElementById('gapcheck');
         this.pipes = []; 
         this.showDebug = true;
         this.spawnCounter = 0;
@@ -18,12 +18,12 @@ export class PipeManager {
     
 
 
-    createPipe() {
+    createPipe(posX) {
         const gapHeight = this.minGapHeight + Math.random() * this.gapHeightVariation;
         const minGapStart = 50;
         const maxGapStart = window.innerHeight - gapHeight - 100;
         const gapStart = minGapStart + Math.random() * (maxGapStart - minGapStart);
-        const initX = window.innerWidth;
+        const initX = posX || window.innerWidth;
         
         // Create pipes
         const topPipe = new Pipe({ x: initX, y: 0, height: gapStart, className: 'top' });
@@ -57,9 +57,9 @@ export class PipeManager {
             this.spawnTime = 120 + Math.random() * 120
         }
 
-        // if(this.showDebug) {
-        //     this.drawPipeStats()
-        // }
+        if(this.showDebug) {
+            this.drawPipeStats()
+        }
         
     }
 
@@ -102,6 +102,9 @@ export class PipeManager {
         // Clear all pipes from DOM and array
         this.pipes.forEach(pipe => pipe.element.remove());
         this.pipes = [];
+
+        // start with a pipe in the middle
+        this.createPipe(window.innerWidth / 3 * 2);
     }
 
     getPipeStats() {

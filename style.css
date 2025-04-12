@@ -95,11 +95,11 @@ h2 {
 }
 
 #gapcheck {
+    /* temp switch off */
+    display:none;
     position: absolute;
-    /* revert to absolute positioning */
     pointer-events: none;
     transform-origin: top left;
-    /* ensure transform calculations use top left origin */
     left: 0px;
     top: 0px;
     width: 80px;
