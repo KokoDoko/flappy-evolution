@@ -6,8 +6,8 @@
 
 - Create a generation of 100 birds with a random brain
 - The brain decides when to flap, based on 5 sensory inputs of the bird
-- The 2 birds that perform best are selected for the next generation
-- Those 2 birds make a child, that child gets slight mutations to create a new generation of 100 birds
+- After all birds have sadly passed away, pairs of birds that performed best are selected for the next generation
+- Those pairs make children, which mutate slightly based on their parents brains
 - After only a few generations, the last surviving bird can avoid all pipes effectively
 - This demo loads this pre-trained brain into 3 birds
 
