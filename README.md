@@ -2,6 +2,8 @@
 
 <img src="./images/bird-big.png" width="340">
 
+[LIVE DEMO](https://kokodoko.github.io/flappy-evolution/)
+
 ### Flappy bird learns to fly by neuro-evolution
 
 - Create a generation of 100 birds with a random brain
